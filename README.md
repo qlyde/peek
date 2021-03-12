@@ -27,6 +27,10 @@ There is no way to split a UTXO, so if you have a 5 BTC UTXO and want to spend 2
 
 [**Coinbase transactions**](https://learnmeabitcoin.com/technical/coinbase-transaction) are an exception to some of these rules. A coinbase is a mining reward whereby miners receive Bitcoin as a reward for mining. Mining is simply a process where miners verify the legitimacy of a transaction. The first transaction in each block is the coinbase transaction.
 
+## More
+
+To view more details of a specific transaction, copy its `hash` and go to **https://www.blockchain.com/btc/tx/\<hash>**. eg. for a `hash=5f278439303d87f7324543a3e873ffd01a18b45bd61476d223341667007680e1` go to [https://www.blockchain.com/btc/tx/5f278439303d87f7324543a3e873ffd01a18b45bd61476d223341667007680e1](https://www.blockchain.com/btc/tx/5f278439303d87f7324543a3e873ffd01a18b45bd61476d223341667007680e1)
+
 ## Running
 
 ```bash
@@ -35,3 +39,10 @@ cd peek
 pip3 install -r requirements.txt
 python3 main.py
 ```
+
+## TODO
+
+- [ ] Add option to only print `n` transactions
+- [ ] Add option to keep alive for `n` seconds
+- [ ] Add option to filter for transactions over $N
+- [ ] Add colour to indicate transaction size
