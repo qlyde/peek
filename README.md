@@ -1,6 +1,6 @@
 # peek
 
-A simple command-line program to peek into real-time unconfirmed Bitcoin transactions using Blockchain.com's Bitcoin WebSocket API.
+A simple command-line program to peek into real-time unconfirmed Bitcoin transactions using Blockchain.com's Bitcoin WebSocket API. It is a work in progress.
 
 ## Demo
 
