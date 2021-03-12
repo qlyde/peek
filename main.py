@@ -32,7 +32,7 @@ def on_message(ws, message):
     from_amts = [str(int(input["prev_out"]["value"]) / 100000000) for input in message["x"]["inputs"]]
     to_addresses = [output["addr"] for output in message["x"]["out"]]
     to_amts = [str(int(output["value"]) / 100000000) for output in message["x"]["out"]]
-    est_auds = list(map(lambda x: str(float(x) * ONE_BTC_AUD), to_amts))
+    est_auds = list(map(lambda x: "${:,.2f}".format(float(x) * ONE_BTC_AUD), to_amts))
 
     table.add_row(timestamp, hash, "\n".join(from_addresses), "\n".join(from_amts), "\n".join(to_addresses), "\n".join(to_amts), "\n".join(est_auds))
 
