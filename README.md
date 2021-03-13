@@ -60,3 +60,4 @@ To view more details of a specific transaction, copy its `hash` and go to **bloc
 - [ ] Add option to keep alive for `n` seconds
 - [ ] Add option to filter for transactions over $N
 - [ ] Add colour to indicate transaction size
+- [ ] Add support for other fiat on output
