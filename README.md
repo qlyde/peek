@@ -2,9 +2,28 @@
 
 A simple command-line program to peek into real-time unconfirmed Bitcoin transactions using Blockchain.com's Bitcoin WebSocket API. It is a work in progress.
 
+## Prerequisites
+
+* Python >= 3.6
+
+## Installing & Running
+
+```bash
+git clone https://github.com/qlyde/peek.git
+cd peek/
+pip3 install -r requirements.txt
+python3 main.py
+```
+
+To prevent column [overflow](https://rich.readthedocs.io/en/stable/console.html#overflow), enlarge your terminal window. This makes `peek` more readable.
+
 ## Demo
 
 ![demo](images/demo.png)
+
+## API Reference
+
+See the [Blockchain API](https://www.blockchain.com/api) for more info. No authentication is needed to access the **Explorer - Transactions & Blocks** Bitcoin [WebSocket API](https://www.blockchain.com/api/api_websocket).
 
 ## Overview
 
@@ -32,15 +51,6 @@ There is no way to split a UTXO, so if you have a 5 BTC UTXO and want to spend 2
 [**Blockchain.com**](https://www.blockchain.com/explorer) supports blockchain exploring and can be used to view certain blocks, transactions and more.
 
 To view more details of a specific transaction, copy its `hash` and go to **blockchain.com/btc/tx/\<hash>**. eg. for a `hash=5f278439303d87f7324543a3e873ffd01a18b45bd61476d223341667007680e1` go to [https://www.blockchain.com/btc/tx/5f278439303d87f7324543a3e873ffd01a18b45bd61476d223341667007680e1](https://www.blockchain.com/btc/tx/5f278439303d87f7324543a3e873ffd01a18b45bd61476d223341667007680e1)
-
-## Running
-
-```bash
-git clone https://github.com/qlyde/peek.git
-cd peek
-pip3 install -r requirements.txt
-python3 main.py
-```
 
 ## TODO
 
