@@ -1,3 +1,4 @@
+import argparse
 import json
 import threading
 import time
@@ -21,7 +22,6 @@ table.add_column("to_amt", overflow="fold")
 table.add_column("est_aud", overflow="fold")
 
 live = Live(table, vertical_overflow="ellipsis", refresh_per_second=4)
-live.start()
 
 def on_message(ws, message):
     message = json.loads(message)
@@ -55,9 +55,12 @@ def main():
         on_open=on_open
     )
 
+    live.start()
+
     thread = threading.Thread(target=close_ws, args=(ws,))
     thread.daemon = True
     thread.start()
+
     ws.run_forever()
 
 if __name__ == "__main__":
