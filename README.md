@@ -2,7 +2,7 @@
 
 A simple command-line program to peek into real-time unconfirmed Bitcoin transactions using Blockchain.com's Bitcoin WebSocket API.
 
-It is a work in progress. I am a novice programmer - PRs and feedback are welcome!
+It is a work in progress. I am a novice programmer so PRs and feedback are welcome!
 
 ## Prerequisites
 
@@ -14,10 +14,17 @@ It is a work in progress. I am a novice programmer - PRs and feedback are welcom
 git clone https://github.com/qlyde/peek.git
 cd peek/
 pip3 install -r requirements.txt
-python3 main.py
+python3 peek.py
 ```
 
-To prevent column [overflow](https://rich.readthedocs.io/en/stable/console.html#overflow), enlarge your terminal window. This makes `peek` more readable.
+### Options
+
+* `-h, --help` display a help message and exit
+* `-m dollars, --min-val dollars` only peek at transactions above a minimum total output (default to $0)
+* `-t seconds, --time seconds` keep websocket open for specified time (default to 10 seconds)
+* `-o, --overflow` let table print past terminal height (not recommended)
+
+If column [overflow](https://rich.readthedocs.io/en/stable/console.html#overflow) is enabled, enlarge your terminal window. This option is not recommended as it can cause buggy output after scrolling up (ie. some transactions get printed multiple times).
 
 ## Demo
 

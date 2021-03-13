@@ -15,18 +15,18 @@ parser.add_argument(
     "-m", "--min-val", dest="min_val",
     nargs=1, metavar="dollars", type=float,
     required=False, default=[0],
-    help="only show transactions above a minimum total output (default $0)."
+    help="only peek at transactions above a minimum total output (default to $0)"
 )
 parser.add_argument(
     "-t", "--time", dest="ws_time",
     nargs=1, metavar="seconds", type=float,
     required=False, default=[10],
-    help="keep websocket open for specified time (default 10 sec)."
+    help="keep websocket open for specified time (default to 10 seconds)"
 )
 parser.add_argument(
     "-o", "--overflow", dest="overflow",
     action="store_true", required=False,
-    help="let table print past terminal height (not recommended).")
+    help="let table print past terminal height (not recommended)")
 opts = {}
 
 one_btc = 0
