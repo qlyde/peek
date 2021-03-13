@@ -57,7 +57,8 @@ To view more details of a specific transaction, copy its `hash` and go to **bloc
 ## TODO
 
 - [ ] Add option to only print `n` transactions
-- [ ] Add option to keep alive for `n` seconds
-- [ ] Add option to filter for transactions over $N
+- [x] Add option to keep alive for `n` seconds
+- [x] Add option to filter for transactions over $N
+- [x] Add option to let table overflow
 - [ ] Add colour to indicate transaction size
-- [ ] Add support for other fiat on output
+- [ ] Add support for currencies other than `est_aud`
