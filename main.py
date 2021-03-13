@@ -9,7 +9,7 @@ from rich.table import Table
 
 
 ONE_BTC_AUD = json.loads(requests.get("https://blockchain.info/ticker").content)["AUD"]["15m"]
-PROG_LIFE = 10 # program life in seconds
+WS_LIFE = 10 # program life in seconds
 
 table = Table(show_lines=True)
 table.add_column("timestamp", overflow="fold", justify="center")
@@ -20,7 +20,7 @@ table.add_column("to_addr", overflow="fold")
 table.add_column("to_amt", overflow="fold")
 table.add_column("est_aud", overflow="fold")
 
-live = Live(table, vertical_overflow="visible", refresh_per_second=4)
+live = Live(table, vertical_overflow="ellipsis", refresh_per_second=4)
 live.start()
 
 def on_message(ws, message):
@@ -32,9 +32,9 @@ def on_message(ws, message):
     from_amt = [str(int(input["prev_out"]["value"]) / 100000000) for input in message["x"]["inputs"]]
     to_address = [output["addr"] for output in message["x"]["out"]]
     to_amt = [str(int(output["value"]) / 100000000) for output in message["x"]["out"]]
-    est_aud = list(map(lambda x: "${:,.2f}".format(float(x) * ONE_BTC_AUD), to_amt))
+    est_aud = list(map(lambda x: float(x) * ONE_BTC_AUD, to_amt))
 
-    table.add_row(timestamp, hash, "\n".join(from_address), "\n".join(from_amt), "\n".join(to_address), "\n".join(to_amt), "\n".join(est_aud))
+    table.add_row(timestamp, hash, "\n".join(from_address), "\n".join(from_amt), "\n".join(to_address), "\n".join(to_amt), "\n".join(map(lambda x: "${:,.2f}".format(x), est_aud)))
 
 def on_error(ws, error):
     print(error)
@@ -43,7 +43,7 @@ def on_open(ws):
     ws.send('{"op":"unconfirmed_sub"}')
 
 def close_ws(ws):
-    time.sleep(PROG_LIFE)
+    time.sleep(WS_LIFE)
     ws.close()
 
 def main():
@@ -55,7 +55,9 @@ def main():
         on_open=on_open
     )
 
-    threading.Thread(target=close_ws, args=(ws,)).start()
+    thread = threading.Thread(target=close_ws, args=(ws,))
+    thread.daemon = True
+    thread.start()
     ws.run_forever()
 
 if __name__ == "__main__":
