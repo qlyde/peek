@@ -1,5 +1,6 @@
 import argparse
 import json
+import sys
 import threading
 import time
 
@@ -35,24 +36,26 @@ table = None
 def on_message(ws, message):
     message = json.loads(message)
 
+    to_amt = [str(int(output["value"]) / 100000000) for output in message["x"]["out"]]
+    est_aud = list(map(lambda x: float(x) * one_btc, to_amt))
+    if sum(est_aud) < opts["min_val"][0]:
+        return
+
     timestamp = time.strftime("%Y-%m-%d\n%H:%M:%S", time.localtime(message["x"]["time"]))
     hash = message["x"]["hash"]
     from_address = [input["prev_out"]["addr"] for input in message["x"]["inputs"]]
     from_amt = [str(int(input["prev_out"]["value"]) / 100000000) for input in message["x"]["inputs"]]
     to_address = [output["addr"] for output in message["x"]["out"]]
-    to_amt = [str(int(output["value"]) / 100000000) for output in message["x"]["out"]]
-    est_aud = list(map(lambda x: float(x) * one_btc, to_amt))
 
-    if sum(est_aud) > opts["min_val"][0]:
-        table.add_row(
-            timestamp,
-            hash,
-            "\n".join(from_address),
-            "\n".join(from_amt),
-            "\n".join(to_address),
-            "\n".join(to_amt),
-            "\n".join(map(lambda x: "${:,.2f}".format(x), est_aud))
-        )
+    table.add_row(
+        timestamp,
+        hash,
+        "\n".join(from_address),
+        "\n".join(from_amt),
+        "\n".join(to_address),
+        "\n".join(to_amt),
+        "\n".join(map(lambda x: "${:,.2f}".format(x), est_aud))
+    )
 
 def on_error(ws, error):
     print(error)
@@ -63,9 +66,10 @@ def on_open(ws):
 def close_ws(ws):
     time.sleep(opts["ws_time"][0])
     ws.close()
+    sys.exit(0)
 
 def main():
-    global opts, one_btc, live, table
+    global opts, one_btc, table
     opts = vars(parser.parse_args())
 
     # websocket.enableTrace(True)
@@ -88,7 +92,7 @@ def main():
     table.add_column("to_amt", overflow="fold")
     table.add_column("est_aud", overflow="fold")
 
-    live = Live(table, vertical_overflow="visible" if opts["overflow"] else "ellipsis", refresh_per_second=4)
+    live = Live(table, vertical_overflow="visible" if opts["overflow"] else "ellipsis", refresh_per_second=1)
     live.start()
 
     thread = threading.Thread(target=close_ws, args=(ws,))
