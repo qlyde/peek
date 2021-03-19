@@ -8,7 +8,7 @@ WIP!
 
 * Python >= 3.6
 
-## Installing & Running
+## Cloning & Running
 
 ```bash
 git clone https://github.com/qlyde/peek.git
