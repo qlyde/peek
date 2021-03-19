@@ -2,7 +2,7 @@
 
 A simple command-line program to peek into real-time unconfirmed Bitcoin transactions using Blockchain.com's Bitcoin WebSocket API.
 
-It is a work in progress. I am a novice programmer so PRs and feedback are welcome!
+WIP!
 
 ## Prerequisites
 
